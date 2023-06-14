@@ -23,20 +23,20 @@
 		</div>
 		<div class="jielong-checkgroup" v-if="jielong.showJielongChecked" v-cloak>
 			<div style="margin-bottom: 25px; display: flex; justify-content: space-between;">
-				<strong style="font-size: 16px">## 用户应付</strong>
+				<strong style="font-size: 16px">## 应付金额</strong>
 				<el-button-group>
-					<el-button size="mini" :icon="ArrowLeft" @click="window.location.reload()">
-						<span>首页</span>
+					<el-button size="mini" :icon="ArrowLeft" @click="backElPlus">
+						<span>返回接龙</span>
 					</el-button>
 					<el-button type="primary" size="mini" @click="jumpNext">
-						<span>跳过</span>
+						<span>跳选下一条</span>
 						<el-icon>
 							<ArrowRight />
 						</el-icon>
 					</el-button>
 				</el-button-group>
 			</div>
-			<JielongCheckgroup ref="jielongCheckgroup" :options="options" :currentSelection222="currentSelection222"
+			<JielongCheckgroup :options="options" :currentSelection222="currentSelection222"
 				:check-select-list="checkSelectList" @checkgroup-change="handleCheckedChange" @check-select="handleCheckSelect">
 			</JielongCheckgroup>
 		</div>
@@ -51,15 +51,14 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, reactive, ref, shallowReactive } from 'vue'
+import { nextTick, reactive, ref } from 'vue'
 import _ from 'lodash'
 /**
  * ==============分割线 Vue + Element 代码===============
  */
 // const Vue = window.Vue
-const ElementUI = window.ELEMENT
-console.log('ElementUI', ElementUI)
-
+// const ElementUI = window.ELEMENT
+// console.log('ElementUI', ElementUI)
 import {
 	ArrowLeft,
 	ArrowRight,
@@ -68,6 +67,14 @@ import {
 import JielongCheckgroup from '@/components/JielongCheckgroup.vue'
 import AmountCounter from '@/components/AmountCounter.vue'
 import PaidTable from '@/components/PaidTable.vue'
+
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
+function backElPlus() {
+	const { fullPath } = route
+	router.push({ name: 'redirect', query: { fullPath } })
+}
 
 interface ElOption {
 	name: string,
@@ -178,7 +185,6 @@ const jielong = reactive({
 	statisticsHTML: '',
 	fileUri: inputFileUri,
 })
-const jielongCheckgroup = ref(null)
 const amountCounter = ref(null)
 const currentTable = ref(null)
 
@@ -190,8 +196,10 @@ function handleCheckedChange(checkedList: []) {
 	}
 }
 
+import { useVeganStore } from '../stores/vegan'
+const vegan = useVeganStore()
 function jumpNext() {
-	const checkedList = jielongCheckgroup.value!.checkedList
+	const checkedList = vegan.checkedList
 	for (let i = 0; i < options.value!.length; i++) {
 		const option = options.value[i]
 		if (option.jump) {

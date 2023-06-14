@@ -18,20 +18,36 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/test',
-      name: 'test',
-      component: () => import('../views/TestView.vue')
+      path: '/vue3main',
+      name: 'vue3main',
+      component: () => import('../views/Vue3MainView.vue')
     },
     {
-      path: '/mouse',
-      name: 'mouse',
-      component: () => import('../components/Mouse.vue')
+      path: '/compositive',
+      name: 'compositive',
+      component: () => import('../views/CompositiveView.vue')
+    },
+    {
+      path: '/movie/:id',
+      name: 'movie',
+      props: true,
+      component: () => import('../views/MovieView.vue')
+    },
+    {
+      path: '/pinia',
+      name: 'pinia',
+      component: () => import('../views/PiniaView.vue')
     },
     {
       path: '/elplus',
       name: 'elplus',
       component: () => import('../views/VegMealView.vue')
-    }
+    },
+    {
+      path: '/redirect',
+      name: 'redirect',
+      component: () => import('../views/redirect.vue')
+    },
   ]
 })
 

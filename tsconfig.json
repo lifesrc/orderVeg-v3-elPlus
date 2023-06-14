@@ -1,7 +1,21 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "types": ["element-plus/global"]
+    "types": ["element-plus/global", "vite/client"],
+    "strict": true,
+    "module": "ES2020",
+    "target": "ES2020",
+    "moduleResolution": "Node",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "skipLibCheck": true,
+    "esModuleInterop": true
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "esm": true,
+    "compilerOptions": {
+      "moduleResolution": "Node16"
+    }
   },
   "files": [],
   "references": [

@@ -1,4 +1,3 @@
-<script lang="tsx">
 import { ref, h } from 'vue'
 // named exports referencing variable declaration: ok
 export default {
@@ -23,7 +22,9 @@ export default {
     const count = ref(666)
     // 返回渲染函数
     // return () => h('div', props.msg + count.value + props.value)
-    return () => <div>{props.msg + count.value + props.value}</div>
+    return () => <div>
+      <h2>Vue tsx 渲染效果：</h2>
+      <div>{props.msg + '$$$' + count.value + '¥¥¥' + props.value}</div>
+    </div>
   }
 }
-</script>
